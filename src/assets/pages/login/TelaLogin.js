@@ -2,6 +2,9 @@ import React, { useState } from 'react';
 import { View, TextInput, StyleSheet, Text, TouchableOpacity } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Logo from '../../../assets/components/Logo/Logo';
+import * as Google from 'expo-auth-session/providers/google';
+import * as Facebook from 'expo-auth-session/providers/facebook';
+import { AntDesign, FontAwesome } from '@expo/vector-icons';
 
 const CustomAlert = ({ message, onClose }) => (
   <View style={styles.alertContainer}>
@@ -17,6 +20,17 @@ export default function TelaLogin({ navigation }) {
   const [senha, setSenha] = useState('');
   const [alertMessage, setAlertMessage] = useState('');
 
+  // Placeholder para o login com Google
+  const handleGoogleLogin = async () => {
+    setAlertMessage("Função de login com Google em desenvolvimento.");
+  };
+
+  // Placeholder para o login com Facebook
+  const handleFacebookLogin = async () => {
+    setAlertMessage("Função de login com Facebook em desenvolvimento.");
+  };
+
+  // Função de login com validação local
   const handleLogin = async () => {
     if (!email || !senha) {
       setAlertMessage('Por favor, preencha todos os campos.');
@@ -37,13 +51,13 @@ export default function TelaLogin({ navigation }) {
 
     setAlertMessage('Login realizado com sucesso!');
     setTimeout(() => {
-      navigation.navigate('Home');  // Navegar para a tela inicial após login bem-sucedido
-    }, 1000); // 1 segundo de delay para mostrar a mensagem
+      navigation.navigate('Home');
+    }, 1000);
   };
 
   return (
     <View style={styles.container}>
-      <Logo />  {/* Exibindo a Logo */}
+      <Logo />
       <Text style={styles.logo}>Seja Bem-Vindo!</Text>
       <TextInput 
         placeholder="E-mail" 
@@ -65,6 +79,26 @@ export default function TelaLogin({ navigation }) {
       {alertMessage ? (
         <CustomAlert message={alertMessage} onClose={() => setAlertMessage('')} />
       ) : null}
+
+      {/* Botões de login social */}
+      <View style={styles.socialLoginContainer}>
+        <TouchableOpacity style={[styles.socialButton, { backgroundColor: '#ff0000' }]} onPress={handleGoogleLogin}>
+          <AntDesign name="google" size={24} color="#fff" />
+        </TouchableOpacity>
+        <TouchableOpacity style={[styles.socialButton, { backgroundColor: '#3b5998' }]} onPress={handleFacebookLogin}>
+          <FontAwesome name="facebook" size={24} color="#fff" />
+        </TouchableOpacity>
+      </View>
+
+      {/* Opções de "Esqueci minha senha" e "Cadastre-se" */}
+      <View style={styles.footer}>
+        <TouchableOpacity onPress={() => navigation.navigate('EsqueciSenha')}>
+          <Text style={styles.footerText}>Esqueci minha senha</Text>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.navigate('Cadastro')}>
+          <Text style={styles.footerText}>Não tem uma conta? Cadastre-se</Text>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 }
@@ -91,14 +125,14 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
   },
   loginButton: {
-    backgroundColor: '#4CAF50', // Cor verde para o botão
+    backgroundColor: '#4CAF50',
     padding: 15,
     borderRadius: 5,
     alignItems: 'center',
     marginBottom: 20,
   },
   loginButtonText: {
-    color: '#fff', // Texto branco para contraste
+    color: '#fff',
     fontWeight: 'bold',
   },
   alertContainer: {
@@ -127,5 +161,28 @@ const styles = StyleSheet.create({
   alertButtonText: {
     color: '#721c24',
     fontWeight: 'bold',
+  },
+  socialLoginContainer: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    marginTop: 20,
+  },
+  socialButton: {
+    width: 50,
+    height: 50,
+    borderRadius: 25,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginHorizontal: 10,
+  },
+  footer: {
+    marginTop: 20,
+    alignItems: 'center',
+  },
+  footerText: {
+    color: '#fff',
+    fontSize: 16,
+    textDecorationLine: 'underline',
+    marginVertical: 5,
   },
 });
