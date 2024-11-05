@@ -9,6 +9,18 @@ import Brasao from '../../../assets/components/Brasao/Brasao';
 export default function TelaHome() {
   const navigation = useNavigation();
 
+  const renderBrasoes = () => {
+    const brasoes = [1, 2, 3, 4]; // Array para mapear os brasões
+    return brasoes.map((item, index) => (
+      <View key={index} style={styles.brasaoContainer}>
+        <Brasao />
+        <TouchableOpacity style={styles.button}>
+          <Text style={styles.buttonText}>Participe</Text>
+        </TouchableOpacity>
+      </View>
+    ));
+  };
+
   return (
     <View style={styles.mainContainer}>
       <ScrollView contentContainerStyle={styles.scrollContainer}>
@@ -21,33 +33,7 @@ export default function TelaHome() {
           <Text style={styles.subtitle}>Campeonatos</Text>
 
           {/* Exibindo os Brasões */}
-          <View style={styles.brasaoContainer}>
-            <Brasao />
-            <TouchableOpacity style={styles.button}>
-              <Text style={styles.buttonText}>Participe</Text>
-            </TouchableOpacity>
-          </View>
-
-          <View style={styles.brasaoContainer}>
-            <Brasao />
-            <TouchableOpacity style={styles.button}>
-              <Text style={styles.buttonText}>Participe</Text>
-            </TouchableOpacity>
-          </View>
-
-          <View style={styles.brasaoContainer}>
-            <Brasao />
-            <TouchableOpacity style={styles.button}>
-              <Text style={styles.buttonText}>Participe</Text>
-            </TouchableOpacity>
-          </View>
-
-          <View style={styles.brasaoContainer}>
-            <Brasao />
-            <TouchableOpacity style={styles.button}>
-              <Text style={styles.buttonText}>Participe</Text>
-            </TouchableOpacity>
-          </View>
+          {renderBrasoes()}
         </View>
       </ScrollView>
 
