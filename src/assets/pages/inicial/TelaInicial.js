@@ -26,7 +26,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     padding: 20,
-    backgroundColor: '#74543B', // Cor de fundo
+    backgroundColor: '#EEC77C', // Cor de fundo
   },
   // Estilo do botão de Login
   loginButton: {
