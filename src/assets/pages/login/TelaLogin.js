@@ -118,14 +118,14 @@ const styles = StyleSheet.create({
   },
   input: {
     borderWidth: 1,
-    borderColor: '#ccc',
+    borderColor: '#000000',
     padding: 10,
     marginBottom: 20,
     borderRadius: 5,
     backgroundColor: '#fff',
   },
   loginButton: {
-    backgroundColor: '#4CAF50',
+    backgroundColor: '#EEC77C',
     padding: 15,
     borderRadius: 5,
     alignItems: 'center',

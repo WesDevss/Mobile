@@ -25,13 +25,15 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+    borderColor: '#000000',
     padding: 20,
-    backgroundColor: '#EEC77C', // Cor de fundo
+    backgroundColor: '#74543B', // Cor de fundo
   },
   // Estilo do botão de Login
   loginButton: {
-    backgroundColor: '#f0a500', // Cor amarela
+    backgroundColor: '#EEC77C', // Cor amarela
     paddingVertical: 15,
+    borderColor: '#000000',
     paddingHorizontal: 30,
     borderRadius: 30,
     marginVertical: 10,
@@ -41,6 +43,7 @@ const styles = StyleSheet.create({
   loginButtonText: {
     color: 'black',
     fontSize: 16,
+    borderColor: '#000000',
     fontWeight: 'bold',
     fontStyle: 'Dm Sans',
   },
@@ -50,6 +53,7 @@ const styles = StyleSheet.create({
     paddingVertical: 15,
     paddingHorizontal: 30,
     borderRadius: 30,
+    borderColor: '#000000',
     marginVertical: 10,
     width: '70%',
     alignItems: 'center',

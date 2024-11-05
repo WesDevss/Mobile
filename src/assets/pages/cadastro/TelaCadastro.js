@@ -115,21 +115,23 @@ const styles = StyleSheet.create({
   },
   input: {
     borderWidth: 1,
-    borderColor: '#ccc',
+    borderColor: '#000000',
     padding: 10,
     marginBottom: 20,
     borderRadius: 5,
     backgroundColor: '#fff',
   },
   cadastroButton: {
-    backgroundColor: '#4CAF50', // Cor verde para o botão
+    backgroundColor: '#EEC77C', // Cor verde para o botão
     padding: 15,
+    borderColor: '#000000',
     borderRadius: 5,
     alignItems: 'center',
     marginBottom: 20,
   },
   cadastroButtonText: {
     color: '#fff', // Texto branco para contraste
+    borderColor: '#000000',
     fontWeight: 'bold',
   },
   alertContainer: {
@@ -147,16 +149,19 @@ const styles = StyleSheet.create({
   alertMessage: {
     color: '#721c24',
     fontSize: 16,
+    borderColor: '#000000',
     marginBottom: 10,
     textAlign: 'center',  
   },
   alertButton: {
     backgroundColor: '#f5c6cb',
     padding: 5,
+    borderColor: '#000000',
     borderRadius: 5,
   },
   alertButtonText: {
     color: '#721c24',
+    borderColor: '#000000',
     fontWeight: 'bold',
   },
 });
