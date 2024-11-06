@@ -1,7 +1,6 @@
 import React, { useRef } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, ScrollView, Animated } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import Logo from '../../../assets/components/Logo/Logo';
 import Banner from '../../../assets/components/Banner/Banner';
 import Brasao from '../../../assets/components/Brasao/Brasao';
 
@@ -26,25 +25,33 @@ export default function TelaHome() {
     }).start();
   };
 
+  // Dados dos brasões (isso pode ser alterado conforme os brasões reais)
+  const brasoes = [
+    { id: 1, uri: 'link_para_o_brasao_1' },
+    { id: 2, uri: 'link_para_o_brasao_2' },
+    { id: 3, uri: 'link_para_o_brasao_3' },
+    { id: 4, uri: 'link_para_o_brasao_4' },
+  ];
+
   return (
     <View style={styles.container}>
       <View style={styles.statusBar} />  {/* Barra de Status */}
       <ScrollView contentContainerStyle={styles.scrollContainer}>
         <Banner />  {/* Exibindo o Banner no topo */}
-        <Logo />    {/* Exibindo a Logo abaixo do Banner */}
         
         <Text style={styles.title}>Campeonatos</Text>
         
         {/* Grid de campeonatos */}
         <View style={styles.championshipsGrid}>
-          {/* Exemplo de um Campeonato */}
-          <View style={styles.championshipItem}>
-            <Brasao source={{ uri: 'link_para_o_brasao' }} style={styles.brasao} />
-            <TouchableOpacity style={styles.participateButton}>
-              <Text style={styles.participateText}>Participe</Text>
-            </TouchableOpacity>
-          </View>
-          {/* Repita o item de campeonato conforme necessário */}
+          {/* Mapeando os brasões e criando os itens dinamicamente */}
+          {brasoes.map((brasao) => (
+            <View key={brasao.id} style={styles.championshipItem}>
+              <Brasao source={{ uri: brasao.uri }} style={styles.brasao} />
+              <TouchableOpacity style={styles.participateButton}>
+                <Text style={styles.participateText}>Participe</Text>
+              </TouchableOpacity>
+            </View>
+          ))}
         </View>
 
         {/* Menu Inferior */}
@@ -55,7 +62,7 @@ export default function TelaHome() {
             onPressOut={handlePressOut}
             style={styles.menuItem}>
             <Animated.View style={{ transform: [{ scale: iconScale }] }}>
-              <Icon name="home" size={30} color="black" />
+              <Icon name="home" size={22} color="black" />
             </Animated.View>
             <Text style={styles.iconText}>Home</Text>
           </TouchableOpacity>
@@ -65,7 +72,7 @@ export default function TelaHome() {
             onPressOut={handlePressOut}
             style={styles.menuItem}>
             <Animated.View style={{ transform: [{ scale: iconScale }] }}>
-              <Icon name="payment" size={30} color="black" />
+              <Icon name="payment" size={22} color="black" />
             </Animated.View>
             <Text style={styles.iconText}>Pagamento</Text>
           </TouchableOpacity>
@@ -75,7 +82,7 @@ export default function TelaHome() {
             onPressOut={handlePressOut}
             style={styles.menuItem}>
             <Animated.View style={{ transform: [{ scale: iconScale }] }}>
-              <Icon name="assignment" size={30} color="black" />
+              <Icon name="assignment" size={22} color="black" />
             </Animated.View>
             <Text style={styles.iconText}>Inscrição</Text>
           </TouchableOpacity>
@@ -85,7 +92,7 @@ export default function TelaHome() {
             onPressOut={handlePressOut}
             style={styles.menuItem}>
             <Animated.View style={{ transform: [{ scale: iconScale }] }}>
-              <Icon name="settings" size={30} color="black" />
+              <Icon name="settings" size={22} color="black" />
             </Animated.View>
             <Text style={styles.iconText}>Ajustes</Text>
           </TouchableOpacity>
@@ -101,39 +108,39 @@ const styles = StyleSheet.create({
     backgroundColor: '#74543B',
   },
   statusBar: { 
-    height: 24, 
+    height: 20, // Ajustado para caber melhor
     backgroundColor: 'black' 
   },
   scrollContainer: {
     alignItems: 'center',
-    paddingBottom: 100,
+    paddingBottom: 80, // Ajustado para um espaçamento menor
   },
   title: { 
-    fontSize: 32,
+    fontSize: 20, // Ajustado para caber na tela
     fontWeight: 'bold',
     color: 'black',
     textAlign: 'center',
-    marginTop: 20,
+    marginTop: 10,
   },
   championshipsGrid: {
     flexDirection: 'row',
     flexWrap: 'wrap',
     justifyContent: 'center',
-    marginTop: 20,
+    marginTop: 10,
   },
   championshipItem: {
-    width: 150,
+    width: 120, // Ajustado para caber melhor
     alignItems: 'center',
-    margin: 10,
+    margin: 5,
   },
   brasao: {
-    width: 100,
-    height: 100,
+    width: 60, // Ajustado para caber melhor
+    height: 60, // Ajustado para caber melhor
     resizeMode: 'contain',
   },
   participateButton: {
-    width: 120,
-    height: 42,
+    width: 90, // Ajustado para caber melhor
+    height: 30, // Ajustado para caber melhor
     backgroundColor: '#C4C4C4',
     borderRadius: 90,
     justifyContent: 'center',
@@ -142,28 +149,28 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.25,
     shadowRadius: 4,
-    marginTop: 10,
+    marginTop: 5,
   },
   participateText: {
-    fontSize: 20,
+    fontSize: 14, // Ajustado para caber melhor
     color: 'black',
   },
   bottomMenu: {
     width: '100%',
-    height: 80,
+    height: 55, // Ajustado para caber melhor
     position: 'absolute',
     bottom: 0,
     backgroundColor: '#938F86',
     flexDirection: 'row',
     justifyContent: 'space-around',
     alignItems: 'center',
-    paddingVertical: 10,
+    paddingVertical: 5,
   },
   menuItem: {
     alignItems: 'center',
   },
   iconText: {
-    fontSize: 12,
+    fontSize: 8, // Ajustado para caber melhor
     color: 'black',
     opacity: 0.6,
     textAlign: 'center',
