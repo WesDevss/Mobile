@@ -19,7 +19,7 @@ export default function TelaCadastro({ navigation }) {
   const [senha, setSenha] = useState('');
   const [confirmarSenha, setConfirmarSenha] = useState('');
   const [cpf, setCpf] = useState('');
-  const [cidade, setCidade] = useState(''); // Novo estado para a cidade
+  const [cidade, setCidade] = useState('');
   const [alertMessage, setAlertMessage] = useState('');
   const [isSuccess, setIsSuccess] = useState(false);
 
@@ -64,7 +64,8 @@ export default function TelaCadastro({ navigation }) {
       return;
     }
 
-    await AsyncStorage.setItem(email, JSON.stringify({ nome, senha, cpf, cidade }));
+    // Salva todos os dados do usuário, incluindo o e-mail
+    await AsyncStorage.setItem(email, JSON.stringify({ nome, email, senha, cpf, cidade }));
     setAlertMessage('Cadastro realizado com sucesso!');
     setIsSuccess(true);
     setTimeout(() => {

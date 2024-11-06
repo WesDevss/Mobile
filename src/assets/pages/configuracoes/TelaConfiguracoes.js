@@ -3,14 +3,20 @@ import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function TelaConfiguracoes({ navigation }) {
-  const [userData, setUserData] = useState({});
+  const [userData, setUserData] = useState({ email: '', cpf: '', cidade: '', nome: '' });
 
   useEffect(() => {
     const loadUserData = async () => {
-      const email = 'w@gmail.com'; // Substitua pelo e-mail do usuário logado, se necessário
-      const data = await AsyncStorage.getItem(email);
-      if (data) {
-        setUserData(JSON.parse(data));
+      try {
+        const email = await AsyncStorage.getItem('userEmail'); // Substitua pela chave correta se necessário
+        if (email) {
+          const data = await AsyncStorage.getItem(email);
+          if (data) {
+            setUserData(JSON.parse(data));
+          }
+        }
+      } catch (error) {
+        console.log('Erro ao carregar dados do usuário:', error);
       }
     };
     loadUserData();
@@ -48,7 +54,7 @@ export default function TelaConfiguracoes({ navigation }) {
         <Text style={styles.detailText}>Email: {userData.email}</Text>
         <Text style={styles.detailText}>Cidade: {userData.cidade}</Text>
         <Text style={styles.detailText}>CPF: {userData.cpf}</Text>
-        <Text style={styles.detailText}>Ranking: 6° Lugar</Text>
+        <Text style={styles.detailText}>Ranking: 1900° Lugar</Text>
       </View>
     </View>
   );

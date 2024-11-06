@@ -1,113 +1,208 @@
-import React from 'react';
-import { View, Text, StyleSheet, Image, TouchableOpacity, ScrollView } from 'react-native';
+import React, { useState } from 'react';
+import { View, TextInput, StyleSheet, Text, TouchableOpacity } from 'react-native';
+import { Picker } from '@react-native-picker/picker';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import Logo from '../../../assets/components/Logo/Logo';
 
-export default function TelaInscricao({ navigation }) {
+const CustomAlert = ({ message, onClose }) => (
+  <View style={styles.alertContainer}>
+    <Text style={styles.alertMessage}>{message}</Text>
+    <TouchableOpacity style={styles.alertButton} onPress={onClose}>
+      <Text style={styles.alertButtonText}>Fechar</Text>
+    </TouchableOpacity>
+  </View>
+);
+
+export default function TelaCadastro({ navigation }) {
+  const [nome, setNome] = useState('');
+  const [email, setEmail] = useState('');
+  const [senha, setSenha] = useState('');
+  const [confirmarSenha, setConfirmarSenha] = useState('');
+  const [cpf, setCpf] = useState('');
+  const [cidade, setCidade] = useState('');
+  const [alertMessage, setAlertMessage] = useState('');
+  const [isSuccess, setIsSuccess] = useState(false);
+
+  const validateEmail = (email) => {
+    const re = /\S+@\S+\.\S+/;
+    return re.test(email);
+  };
+
+  const validateCPF = (cpf) => {
+    return cpf.length === 11;
+  };
+
+  const handleCadastro = async () => {
+    if (!nome || !email || !senha || !confirmarSenha || !cpf || !cidade) {
+      setAlertMessage('Por favor, preencha todos os campos.');
+      setIsSuccess(false);
+      return;
+    }
+
+    if (!validateEmail(email)) {
+      setAlertMessage('Por favor, insira um e-mail válido.');
+      setIsSuccess(false);
+      return;
+    }
+
+    if (!validateCPF(cpf)) {
+      setAlertMessage('Por favor, insira um CPF válido.');
+      setIsSuccess(false);
+      return;
+    }
+
+    if (senha !== confirmarSenha) {
+      setAlertMessage('As senhas não coincidem.');
+      setIsSuccess(false);
+      return;
+    }
+
+    const usuarioExistente = await AsyncStorage.getItem(email);
+    if (usuarioExistente) {
+      setAlertMessage('Já existe uma conta com este e-mail.');
+      setIsSuccess(false);
+      return;
+    }
+
+    await AsyncStorage.setItem(email, JSON.stringify({ nome, email, senha, cpf, cidade }));
+    setAlertMessage('Cadastro realizado com sucesso!');
+    setIsSuccess(true);
+    setTimeout(() => {
+      navigation.navigate('Login');
+    }, 1000);
+  };
+
   return (
-    <ScrollView contentContainerStyle={styles.container}>
-      {/* Logo do evento */}
-      <Image 
-        source={require('../../components/Brasao/brasaobaca.png')}
-        style={styles.logo}
+    <View style={styles.container}>
+      <Logo />
+      <Text style={styles.logo}>Faça Parte da Nossa Comunidade</Text>
+      <TextInput 
+        placeholder="Nome Completo" 
+        style={styles.input} 
+        value={nome}
+        onChangeText={setNome}
       />
-
-      {/* Informações sobre o evento */}
-      <Text style={styles.title}>Campeonato de Bacabeira</Text>
-      <Text style={styles.subtitle}>1ª edição</Text>
-      
-      <View style={styles.detailsContainer}>
-        <Text style={styles.detail}><Text style={styles.bold}>Data:</Text> 18/10/2024</Text>
-        <Text style={styles.detail}><Text style={styles.bold}>Horário:</Text> 15:00 – 17:00</Text>
-        <Text style={styles.detail}><Text style={styles.bold}>Total de Vagas:</Text> 50 Participantes</Text>
-        <Text style={styles.detail}><Text style={styles.bold}>Inscrições abertas até:</Text> 08/10/2024</Text>
-        <Text style={styles.detail}><Text style={styles.bold}>Valor:</Text> R$ 20,00</Text>
-      </View>
-
-      {/* Mapa ou imagem de localização (opcional) */}
-      <Image 
-        source={require('../../components/Mapa/MapaBaca.png')}
-        style={styles.map}
+      <TextInput 
+        placeholder="E-mail" 
+        style={styles.input} 
+        value={email}
+        onChangeText={setEmail}
       />
-
-      {/* Botão de pagamento */}
-      <TouchableOpacity 
-        style={styles.paymentButton}
-        onPress={() => navigation.navigate('TelaPagamento')}
+      <TextInput 
+        placeholder="CPF" 
+        style={styles.input} 
+        value={cpf}
+        onChangeText={setCpf}
+        keyboardType="numeric"
+      />
+      <Text style={styles.pickerLabel}>Escolha sua cidade:</Text>
+      <Picker
+        selectedValue={cidade}
+        onValueChange={(itemValue) => setCidade(itemValue)}
+        style={styles.picker}
       >
-        <Text style={styles.paymentText}>Pagamento</Text>
+        <Picker.Item label="Selecione uma cidade" value="" />
+        <Picker.Item label="São Luís" value="sao_luis" />
+        <Picker.Item label="Bacabeira" value="bacabeira" />
+        <Picker.Item label="Arari" value="arari" />
+        <Picker.Item label="Viana" value="viana" />
+      </Picker>
+      <TextInput 
+        placeholder="Senha" 
+        secureTextEntry 
+        style={styles.input} 
+        value={senha}
+        onChangeText={setSenha}
+      />
+      <TextInput 
+        placeholder="Confirme sua senha" 
+        secureTextEntry 
+        style={styles.input} 
+        value={confirmarSenha}
+        onChangeText={setConfirmarSenha}
+      />
+      <TouchableOpacity style={styles.cadastroButton} onPress={handleCadastro}>
+        <Text style={styles.cadastroButtonText}>Cadastre-se</Text>
       </TouchableOpacity>
-    </ScrollView>
+
+      {alertMessage ? (
+        <CustomAlert message={alertMessage} onClose={() => { setAlertMessage(''); setIsSuccess(false); }} />
+      ) : null}
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
-  // (seu código de estilo permanece o mesmo
-
-  container: {
-    flexGrow: 1,
-    alignItems: 'center',
-    padding: 20,
-    backgroundColor: '#f0e6df',
-  },
   logo: {
-    width: 100,
-    height: 100,
-    marginBottom: 20,
-    borderRadius: 10,
-  },
-  title: {
-    fontSize: 24,
+    fontSize: 32,
     fontWeight: 'bold',
-    color: '#333',
     textAlign: 'center',
+    marginBottom: 20,
+  },
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    padding: 20,
+    backgroundColor: '#74543B',
+  },
+  input: {
+    borderWidth: 1,
+    borderColor: '#000000',
+    padding: 10,
+    marginBottom: 20,
+    borderRadius: 5,
+    backgroundColor: '#fff',
+  },
+  pickerLabel: {
+    fontSize: 16,
+    fontWeight: 'bold',
     marginBottom: 5,
   },
-  subtitle: {
-    fontSize: 18,
-    color: '#666',
-    textAlign: 'center',
-    marginBottom: 15,
-  },
-  detailsContainer: {
-    width: '100%',
+  picker: {
+    height: 50,
     backgroundColor: '#fff',
+    borderRadius: 5,
+    borderWidth: 1,
+    borderColor: '#000000',
+    marginBottom: 20,
+  },
+  cadastroButton: {
+    backgroundColor: '#EEC77C',
     padding: 15,
-    borderRadius: 10,
+    borderRadius: 5,
+    alignItems: 'center',
     marginBottom: 20,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
   },
-  detail: {
-    fontSize: 16,
-    color: '#444',
-    marginBottom: 8,
-  },
-  bold: {
+  cadastroButtonText: {
+    color: '#fff',
     fontWeight: 'bold',
-    color: '#000',
   },
-  map: {
-    width: '100%',
-    height: 150,
-    borderRadius: 10,
-    marginBottom: 20,
-  },
-  paymentButton: {
-    backgroundColor: '#34a853',
-    paddingVertical: 15,
-    paddingHorizontal: 30,
+  alertContainer: {
+    position: 'absolute',
+    top: '40%',
+    left: '10%',
+    right: '10%',
+    backgroundColor: '#f8d7da',
+    borderWidth: 1,
+    borderColor: '#f5c6cb',
+    padding: 20,
     borderRadius: 10,
     alignItems: 'center',
-    width: '80%',
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.2,
-    shadowRadius: 5,
+    zIndex: 1,  // Garante que o alerta apareça sobre outros componentes
   },
-  paymentText: {
-    color: '#fff',
-    fontSize: 18,
+  alertMessage: {
+    color: '#721c24',
+    fontSize: 16,
+    marginBottom: 10,
+    textAlign: 'center',  
+  },
+  alertButton: {
+    backgroundColor: '#f5c6cb',
+    padding: 5,
+    borderRadius: 5,
+  },
+  alertButtonText: {
+    color: '#721c24',
     fontWeight: 'bold',
   },
 });
