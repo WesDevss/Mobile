@@ -1,7 +1,21 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function TelaConfiguracoes({ navigation }) {
+  const [userData, setUserData] = useState({});
+
+  useEffect(() => {
+    const loadUserData = async () => {
+      const email = 'wesley@gmail.com'; // Substitua pelo e-mail do usuário logado, se necessário
+      const data = await AsyncStorage.getItem(email);
+      if (data) {
+        setUserData(JSON.parse(data));
+      }
+    };
+    loadUserData();
+  }, []);
+
   return (
     <View style={styles.container}>
       {/* Header com o título */}
@@ -11,7 +25,7 @@ export default function TelaConfiguracoes({ navigation }) {
 
       {/* Seção do perfil do usuário */}
       <View style={styles.profileContainer}>
-        <Text style={styles.userName}>Jonas Macroni</Text>
+        <Text style={styles.userName}>{userData.nome}</Text>
       </View>
 
       {/* Botões de navegação */}
@@ -31,12 +45,12 @@ export default function TelaConfiguracoes({ navigation }) {
 
       {/* Informações detalhadas do usuário */}
       <View style={styles.userDetails}>
-        <Text style={styles.detailText}>Email: jonas.macroni@gmail.com</Text>
-        <Text style={styles.detailText}>Cidade: Bacabeira</Text>
-        <Text style={styles.detailText}>CPF: 610.771.003-03</Text>
+        <Text style={styles.detailText}>Email: {userData.email}</Text>
+        <Text style={styles.detailText}>Cidade: {userData.cidade}</Text>
+        <Text style={styles.detailText}>CPF: {userData.cpf}</Text>
         <Text style={styles.detailText}>Ranking: 6° Lugar</Text>
       </View>
-    </View> // Fechamento da tag View principal
+    </View>
   );
 }
 
@@ -49,7 +63,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     padding: 20,
-    backgroundColor: '#A0522D', // Cor do topo
+    backgroundColor: '#A0522D',
   },
   title: {
     fontSize: 24,
