@@ -10,10 +10,10 @@ import Saoluis from '../../../assets/components/Brasao/brasaoslz.png';
 import Viana from '../../../assets/components/Brasao/brasaoviana.png';
 
 // Componente para os cards
-const Card = ({ imageSource, title }) => (
+const Card = ({ imageSource, title, onPress }) => (
   <View style={styles.card}>
     <Image source={imageSource} style={styles.cardImage} />
-    <TouchableOpacity style={styles.participateButton}>
+    <TouchableOpacity style={styles.participateButton} onPress={onPress}>
       <Text style={styles.participateButtonText}>Participe</Text>
     </TouchableOpacity>
   </View>
@@ -30,10 +30,26 @@ export default function TelaHome({ navigation }) {
 
       {/* Cards com os brasões */}
       <View style={styles.cardsContainer}>
-        <Card imageSource={Bacaberia} title="Bacabal" />
-        <Card imageSource={Arari} title="Arari" />
-        <Card imageSource={Saoluis} title="São Luís" />
-        <Card imageSource={Viana} title="Viana" />
+        <Card 
+          imageSource={Bacaberia} 
+          title="Bacabeira" 
+          onPress={() => navigation.navigate('Informação campeonato Bacabeira')} 
+        />
+        <Card 
+          imageSource={Arari} 
+          title="Arari" 
+          onPress={() => navigation.navigate('Informação campeonato Bacabeira')} 
+        />
+        <Card 
+          imageSource={Saoluis} 
+          title="São Luís" 
+          onPress={() => navigation.navigate('Informação campeonato Bacabeira')} 
+        />
+        <Card 
+          imageSource={Viana} 
+          title="Viana" 
+          onPress={() => navigation.navigate('Informação campeonato Bacabeira')} 
+        />
       </View>
 
       {/* Barra de navegação inferior */}
