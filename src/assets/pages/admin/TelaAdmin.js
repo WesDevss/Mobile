@@ -1,36 +1,45 @@
 import React from 'react';
 import { View, TouchableOpacity, Text, StyleSheet, Image } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import Logo from '../../../assets/components/Logo/DamasLogo.png';
+import Logo from '../../../assets/components/Logo/DamasLogo.png'; // Logo da confederação de damas
 
-// Imagens para os brasões
-import Bacaberia from '../../../assets/components/Brasao/brasaobaca.png';
-import Arari from '../../../assets/components/Brasao/brasaoarari.png';
-import Saoluis from '../../../assets/components/Brasao/brasaoslz.png';
-import Viana from '../../../assets/components/Brasao/brasaoviana.png';
-
-// Componente para os cards
-const Card = ({ imageSource, title }) => (
+// Componente para os cards de administração
+const AdminCard = ({ title, value, buttonText, onPress }) => (
   <View style={styles.card}>
-    <Image source={imageSource} style={styles.cardImage} />
-    <TouchableOpacity style={styles.participateButton}>
-      <Text style={styles.participateButtonText}>Participe</Text>
+    <Text style={styles.cardTitle}>{title}</Text>
+    <Text style={styles.cardValue}>{value}</Text>
+    <TouchableOpacity style={styles.cardButton} onPress={onPress}>
+      <Text style={styles.cardButtonText}>{buttonText}</Text>
     </TouchableOpacity>
   </View>
 );
 
-export default function TelaHome({ navigation }) {
+export default function TelaAdmin({ navigation }) {
   return (
     <View style={styles.container}>
       {/* Título */}
-      <Text style={styles.title}>Campeonatos</Text>
+      <Text style={styles.title}>Painel Administrativo</Text>
 
-      {/* Cards com os brasões */}
+      {/* Cards de informações administrativas */}
       <View style={styles.cardsContainer}>
-        <Card imageSource={Bacaberia} title="Bacabal" />
-        <Card imageSource={Arari} title="Arari" />
-        <Card imageSource={Saoluis} title="São Luís" />
-        <Card imageSource={Viana} title="Viana" />
+        <AdminCard 
+          title="Total de Inscritos"
+          value="150" // Exemplo de número, você pode usar um estado para atualizar
+          buttonText="Ver Detalhes"
+          onPress={() => navigation.navigate('DetalhesInscritos')} // Navega para detalhes dos inscritos
+        />
+        <AdminCard 
+          title="Relatório de Inscrições"
+          value="Disponível"
+          buttonText="Gerar Relatório"
+          onPress={() => navigation.navigate('GerarRelatorio')} // Navega para a geração de relatório
+        />
+        <AdminCard 
+          title="Total de Dinheiro Destinado"
+          value="R$ 10.000,00" // Exemplo de valor, também pode ser dinâmico
+          buttonText="Ver Detalhes"
+          onPress={() => navigation.navigate('DetalhesFinanceiros')} // Navega para ver detalhes financeiros
+        />
       </View>
 
       {/* Barra de navegação inferior com a logo */}
@@ -39,13 +48,13 @@ export default function TelaHome({ navigation }) {
           <Icon name="home" size={24} color="black" />
           <Text style={styles.navButtonText}>Home</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.navButton} onPress={() => navigation.navigate('Pagamento')}>
+        <TouchableOpacity style={styles.navButton} onPress={() => navigation.navigate('Pagamentos')}>
           <Icon name="payment" size={24} color="black" />
           <Text style={styles.navButtonText}>Pagamento</Text>
         </TouchableOpacity>
         
         {/* Logo como botão centralizado na barra */}
-        <TouchableOpacity style={styles.logoButton} onPress={() => navigation.navigate('Inscrito')}>
+        <TouchableOpacity style={styles.logoButton} onPress={() => navigation.navigate('AdminHome')}>
           <Image source={Logo} style={styles.logo} />
         </TouchableOpacity>
 
@@ -78,30 +87,42 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     flexWrap: 'wrap',
     justifyContent: 'space-around',
-    width: '100%',
     padding: 10,
   },
   card: {
     width: '45%',
     marginBottom: 10,
     alignItems: 'center',
+    backgroundColor: '#FFF',
+    borderRadius: 10,
+    padding: 10,
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.8,
+    shadowRadius: 2,
+    elevation: 5,
   },
-  cardImage: {
-    width: 150,
-    height: 150,
-    resizeMode: 'contain',
+  cardTitle: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: '#333',
+    marginBottom: 5,
+  },
+  cardValue: {
+    fontSize: 20,
+    color: '#333',
     marginBottom: 10,
   },
-  participateButton: {
+  cardButton: {
     backgroundColor: '#F0E68C',
-    padding: 20,
+    padding: 10,
     borderRadius: 5,
     borderWidth: 1,
     borderColor: '#C0C0C0',
   },
-  participateButtonText: {
+  cardButtonText: {
     color: '#333',
-    fontSize: 18,
+    fontSize: 16,
     fontWeight: 'bold',
   },
   navigationBar: {
@@ -122,13 +143,13 @@ const styles = StyleSheet.create({
     marginTop: 5,
   },
   logoButton: {
+    justifyContent: 'center',
     alignItems: 'center',
-    marginBottom: 0, // ajustado para alinhar a logo mais acima
+    marginBottom: 0,
   },
   logo: {
-    width: 60, // tamanho da logo
+    width: 60,
     height: 60,
     resizeMode: 'contain',
-    marginTop: -5, // ajuste para elevar a logo
   },
 });

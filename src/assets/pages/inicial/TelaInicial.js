@@ -16,6 +16,11 @@ export default function TelaInicial({ navigation }) {
       <TouchableOpacity style={styles.cadastroButton} onPress={() => navigation.navigate('Cadastro')}>
         <Text style={styles.cadastroButtonText}>Cadastro</Text>
       </TouchableOpacity>
+
+      {/* Botão de Login Admin */}
+      <TouchableOpacity style={styles.loginAdminButton} onPress={() => navigation.navigate('LoginAdmin')}>
+        <Text style={styles.loginAdminButtonText}>Login Admin</Text>
+      </TouchableOpacity>
     </View>
   );
 }
@@ -60,6 +65,23 @@ const styles = StyleSheet.create({
   },
   cadastroButtonText: {
     color: 'black', // Cor do texto
+    fontSize: 16,
+    fontWeight: 'bold',
+    fontStyle: 'Dm Sans',
+  },
+  // Estilo do botão de Login Admin
+  loginAdminButton: {
+    backgroundColor: '#DADADA', // Cor #DADADA para o botão Admin
+    paddingVertical: 15,
+    paddingHorizontal: 30,
+    borderRadius: 30,
+    borderColor: '#000000',
+    marginVertical: 10,
+    width: '70%',
+    alignItems: 'center',
+  },
+  loginAdminButtonText: {
+    color: 'black', // Cor do texto do botão Admin
     fontSize: 16,
     fontWeight: 'bold',
     fontStyle: 'Dm Sans',
