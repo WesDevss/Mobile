@@ -1,43 +1,91 @@
-// src/assets/pages/configuracoes/TelaConfiguracoes.js
-
 import React from 'react';
-import { View, Text, StyleSheet, Switch } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 
-export default function TelaConfiguracoes() {
-  const [notificacoes, setNotificacoes] = React.useState(false);
-
+export default function TelaConfiguracoes({ navigation }) {
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Configurações</Text>
-      <View style={styles.setting}>
-        <Text style={styles.settingText}>Notificações</Text>
-        <Switch
-          value={notificacoes}
-          onValueChange={() => setNotificacoes(!notificacoes)}
-        />
+      {/* Header com o título */}
+      <View style={styles.header}>
+        <Text style={styles.title}>Ajustes</Text>
       </View>
-    </View>
+
+      {/* Seção do perfil do usuário */}
+      <View style={styles.profileContainer}>
+        <Text style={styles.userName}>Jonas Macroni</Text>
+      </View>
+
+      {/* Botões de navegação */}
+      <TouchableOpacity
+        style={styles.optionButton}
+        onPress={() => navigation.navigate('InformacoesContato')}
+      >
+        <Text style={styles.optionText}>Informações de contato</Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity
+        style={styles.optionButton}
+        onPress={() => navigation.navigate('Ranking')}
+      >
+        <Text style={styles.optionText}>Ranking</Text>
+      </TouchableOpacity>
+
+      {/* Informações detalhadas do usuário */}
+      <View style={styles.userDetails}>
+        <Text style={styles.detailText}>Email: jonas.macroni@gmail.com</Text>
+        <Text style={styles.detailText}>Cidade: Bacabeira</Text>
+        <Text style={styles.detailText}>CPF: 610.771.003-03</Text>
+        <Text style={styles.detailText}>Ranking: 6° Lugar</Text>
+      </View>
+    </View> // Fechamento da tag View principal
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 20,
     backgroundColor: '#FFFFFF',
   },
-  title: {
-    fontSize: 28,
-    fontWeight: 'bold',
-    marginVertical: 10,
+  header: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    padding: 20,
+    backgroundColor: '#A0522D', // Cor do topo
   },
-  setting: {
+  title: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    color: '#000',
+  },
+  profileContainer: {
+    alignItems: 'center',
+    marginVertical: 20,
+  },
+  userName: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    marginTop: 10,
+  },
+  optionButton: {
+    backgroundColor: '#f2f2f2',
+    padding: 15,
+    marginHorizontal: 20,
+    marginVertical: 5,
+    borderRadius: 10,
     flexDirection: 'row',
     justifyContent: 'space-between',
-    alignItems: 'center',
-    marginVertical: 15,
   },
-  settingText: {
-    fontSize: 18,
+  optionText: {
+    fontSize: 16,
+  },
+  userDetails: {
+    padding: 20,
+    marginTop: 10,
+  },
+  detailText: {
+    fontSize: 16,
+    marginVertical: 5,
+    backgroundColor: '#F5F5F5',
+    padding: 10,
+    borderRadius: 5,
   },
 });

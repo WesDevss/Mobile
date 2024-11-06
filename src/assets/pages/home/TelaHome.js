@@ -1,178 +1,127 @@
-import React, { useRef } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, ScrollView, Animated } from 'react-native';
+import React from 'react';
+import { View, TouchableOpacity, Text, StyleSheet, Image } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import Banner from '../../../assets/components/Banner/Banner';
-import Brasao from '../../../assets/components/Brasao/Brasao';
 
-export default function TelaHome() {
-  // Ref para controlar a animação de brilho
-  const iconScale = useRef(new Animated.Value(1)).current;
+// Importar as imagens
+import Banner from '../../../assets/components/Banner/Banner.png';
+import Bacaberia from '../../../assets/components/Brasao/brasaobaca.png';
+import Arari from '../../../assets/components/Brasao/brasaoarari.png';
+import Saoluis from '../../../assets/components/Brasao/brasaoslz.png';
+import Viana from '../../../assets/components/Brasao/brasaoviana.png';
 
-  // Funções para aumentar e reduzir o brilho
-  const handlePressIn = () => {
-    Animated.timing(iconScale, {
-      toValue: 1.2,
-      duration: 200,
-      useNativeDriver: true,
-    }).start();
-  };
+// Componente para os cards
+const Card = ({ imageSource, title }) => (
+  <View style={styles.card}>
+    <Image source={imageSource} style={styles.cardImage} />
+    <TouchableOpacity style={styles.participateButton}>
+      <Text style={styles.participateButtonText}>Participe</Text>
+    </TouchableOpacity>
+  </View>
+);
 
-  const handlePressOut = () => {
-    Animated.timing(iconScale, {
-      toValue: 1,
-      duration: 200,
-      useNativeDriver: true,
-    }).start();
-  };
-
-  // Dados dos brasões (isso pode ser alterado conforme os brasões reais)
-  const brasoes = [
-    { id: 1, uri: 'link_para_o_brasao_1' },
-    { id: 2, uri: 'link_para_o_brasao_2' },
-    { id: 3, uri: 'link_para_o_brasao_3' },
-    { id: 4, uri: 'link_para_o_brasao_4' },
-  ];
-
+export default function TelaHome({ navigation }) {
   return (
     <View style={styles.container}>
-      <View style={styles.statusBar} />  {/* Barra de Status */}
-      <ScrollView contentContainerStyle={styles.scrollContainer}>
-        <Banner />  {/* Exibindo o Banner no topo */}
-        
-        <Text style={styles.title}>Campeonatos</Text>
-        
-        {/* Grid de campeonatos */}
-        <View style={styles.championshipsGrid}>
-          {/* Mapeando os brasões e criando os itens dinamicamente */}
-          {brasoes.map((brasao) => (
-            <View key={brasao.id} style={styles.championshipItem}>
-              <Brasao source={{ uri: brasao.uri }} style={styles.brasao} />
-              <TouchableOpacity style={styles.participateButton}>
-                <Text style={styles.participateText}>Participe</Text>
-              </TouchableOpacity>
-            </View>
-          ))}
-        </View>
+      {/* Banner no topo */}
+      <Image source={Banner} style={styles.banner} />
 
-        {/* Menu Inferior */}
-        <View style={styles.bottomMenu}>
-          {/** Ícones do menu */}
-          <TouchableOpacity
-            onPressIn={handlePressIn}
-            onPressOut={handlePressOut}
-            style={styles.menuItem}>
-            <Animated.View style={{ transform: [{ scale: iconScale }] }}>
-              <Icon name="home" size={22} color="black" />
-            </Animated.View>
-            <Text style={styles.iconText}>Home</Text>
-          </TouchableOpacity>
+      {/* Título */}
+      <Text style={styles.title}>Campeonatos</Text>
 
-          <TouchableOpacity
-            onPressIn={handlePressIn}
-            onPressOut={handlePressOut}
-            style={styles.menuItem}>
-            <Animated.View style={{ transform: [{ scale: iconScale }] }}>
-              <Icon name="payment" size={22} color="black" />
-            </Animated.View>
-            <Text style={styles.iconText}>Pagamento</Text>
-          </TouchableOpacity>
+      {/* Cards com os brasões */}
+      <View style={styles.cardsContainer}>
+        <Card imageSource={Bacaberia} title="Bacabal" />
+        <Card imageSource={Arari} title="Arari" />
+        <Card imageSource={Saoluis} title="São Luís" />
+        <Card imageSource={Viana} title="Viana" />
+      </View>
 
-          <TouchableOpacity
-            onPressIn={handlePressIn}
-            onPressOut={handlePressOut}
-            style={styles.menuItem}>
-            <Animated.View style={{ transform: [{ scale: iconScale }] }}>
-              <Icon name="assignment" size={22} color="black" />
-            </Animated.View>
-            <Text style={styles.iconText}>Inscrição</Text>
-          </TouchableOpacity>
-
-          <TouchableOpacity
-            onPressIn={handlePressIn}
-            onPressOut={handlePressOut}
-            style={styles.menuItem}>
-            <Animated.View style={{ transform: [{ scale: iconScale }] }}>
-              <Icon name="settings" size={22} color="black" />
-            </Animated.View>
-            <Text style={styles.iconText}>Ajustes</Text>
-          </TouchableOpacity>
-        </View>
-      </ScrollView>
+      {/* Barra de navegação inferior */}
+      <View style={styles.navigationBar}>
+        <TouchableOpacity style={styles.navButton} onPress={() => navigation.navigate('Home')}>
+          <Icon name="home" size={24} color="black" />
+          <Text style={styles.navButtonText}>Home</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.navButton} onPress={() => navigation.navigate('Pagamentos')}>
+          <Icon name="payment" size={24} color="black" />
+          <Text style={styles.navButtonText}>Pagamento</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.navButton} onPress={() => navigation.navigate('Inscricao')}>
+          <Icon name="person-add" size={24} color="black" />
+          <Text style={styles.navButtonText}>Inscrição</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.navButton} onPress={() => navigation.navigate('Configuracoes')}>
+          <Icon name="settings" size={24} color="black" />
+          <Text style={styles.navButtonText}>Ajustes</Text>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  container: { 
-    flex: 1, 
-    backgroundColor: '#74543B',
+  container: {
+    flex: 1,
+    backgroundColor: '#F5F5F5', 
   },
-  statusBar: { 
-    height: 20, // Ajustado para caber melhor
-    backgroundColor: 'black' 
+  banner: { 
+    width: '100%',
+    height: 100,
+    resizeMode: 'cover',
+    marginTop: 20, 
   },
-  scrollContainer: {
-    alignItems: 'center',
-    paddingBottom: 80, // Ajustado para um espaçamento menor
-  },
-  title: { 
-    fontSize: 20, // Ajustado para caber na tela
+  title: {
+    fontSize: 24,
     fontWeight: 'bold',
-    color: 'black',
+    marginBottom: 20,
+    color: '#333', 
     textAlign: 'center',
-    marginTop: 10,
   },
-  championshipsGrid: {
+  cardsContainer: {
     flexDirection: 'row',
     flexWrap: 'wrap',
-    justifyContent: 'center',
-    marginTop: 10,
+    justifyContent: 'space-around',
+    width: '100%',
+    padding: 10,
   },
-  championshipItem: {
-    width: 120, // Ajustado para caber melhor
+  card: {
+    width: '45%',
+    marginBottom: 10,
     alignItems: 'center',
-    margin: 5,
   },
-  brasao: {
-    width: 60, // Ajustado para caber melhor
-    height: 60, // Ajustado para caber melhor
+  cardImage: {
+    width: 150, // Aumente a largura da imagem
+    height: 150, // Aumente a altura da imagem
     resizeMode: 'contain',
+    marginBottom: 10, 
   },
   participateButton: {
-    width: 90, // Ajustado para caber melhor
-    height: 30, // Ajustado para caber melhor
-    backgroundColor: '#C4C4C4',
-    borderRadius: 90,
-    justifyContent: 'center',
-    alignItems: 'center',
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.25,
-    shadowRadius: 4,
-    marginTop: 5,
+    backgroundColor: '#F0E68C', // Cor do botão
+    padding: 20, // Aumente o padding do botão
+    borderRadius: 5,
+    borderWidth: 1,
+    borderColor: '#C0C0C0',
   },
-  participateText: {
-    fontSize: 14, // Ajustado para caber melhor
-    color: 'black',
+  participateButtonText: {
+    color: '#333', 
+    fontSize: 18, // Aumente o tamanho do texto do botão
+    fontWeight: 'bold',
   },
-  bottomMenu: {
-    width: '100%',
-    height: 55, // Ajustado para caber melhor
-    position: 'absolute',
-    bottom: 0,
-    backgroundColor: '#938F86',
+  navigationBar: {
     flexDirection: 'row',
     justifyContent: 'space-around',
-    alignItems: 'center',
-    paddingVertical: 5,
+    width: '100%',
+    padding: 10,
+    backgroundColor: '#938F86', 
+    position: 'absolute',
+    bottom: 0,
   },
-  menuItem: {
+  navButton: {
     alignItems: 'center',
   },
-  iconText: {
-    fontSize: 8, // Ajustado para caber melhor
-    color: 'black',
-    opacity: 0.6,
-    textAlign: 'center',
+  navButtonText: {
+    fontSize: 12, 
+    color: '#333',
+    marginTop: 5,
   },
 });
