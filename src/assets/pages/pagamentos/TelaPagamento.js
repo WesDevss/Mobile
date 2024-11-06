@@ -1,7 +1,12 @@
 import React from 'react';
 import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
 
-export default function TelaPagamento() {
+export default function TelaPagamento({ navigation }) {
+  const handleConfirm = () => {
+    // Navega para a tela Home ao confirmar o pagamento
+    navigation.navigate('Home');
+  };
+
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Pagamento Campeonato</Text>
@@ -11,9 +16,8 @@ export default function TelaPagamento() {
         <Text style={styles.pixText}>Pague com Pix</Text>
       </TouchableOpacity>
       
-      {/* Exibir QR Code do Pix */}
       <Image 
-        source={require('../../components/QRCode/QRcode.png')}  // Ajuste o caminho se necessário
+        source={require('../../components/QRCode/QRcode.png')}
         style={styles.qrCode}
       />
       
@@ -27,7 +31,7 @@ export default function TelaPagamento() {
         </Text>
       </View>
       
-      <TouchableOpacity style={styles.confirmButton}>
+      <TouchableOpacity style={styles.confirmButton} onPress={handleConfirm}>
         <Text style={styles.confirmText}>Confirmar</Text>
       </TouchableOpacity>
     </View>
@@ -40,7 +44,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     padding: 20,
-    backgroundColor: '#FFF8F0', // Cor de fundo mais suave.
+    backgroundColor: '#FFF8F0',
   },
   title: {
     fontSize: 28,

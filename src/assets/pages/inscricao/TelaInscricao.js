@@ -31,7 +31,7 @@ export default function TelaInscricao({ navigation }) {
       {/* Botão de pagamento */}
       <TouchableOpacity 
         style={styles.paymentButton}
-        onPress={() => navigation.navigate('TelaPagamento')}
+        onPress={() => navigation.navigate('TelaPagamento')}  // Navega para a TelaPagamento
       >
         <Text style={styles.paymentText}>Pagamento</Text>
       </TouchableOpacity>
@@ -40,8 +40,6 @@ export default function TelaInscricao({ navigation }) {
 }
 
 const styles = StyleSheet.create({
-  // (seu código de estilo permanece o mesmo
-
   container: {
     flexGrow: 1,
     alignItems: 'center',
