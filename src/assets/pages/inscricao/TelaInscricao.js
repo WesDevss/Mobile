@@ -1,11 +1,12 @@
 import React from 'react';
 import { View, Text, StyleSheet, Image, TouchableOpacity, ScrollView } from 'react-native';
 
-export default function TelaInscricao() {
+export default function TelaInscricao({ navigation }) {
   return (
     <ScrollView contentContainerStyle={styles.container}>
       {/* Logo do evento */}
       <Image 
+        source={require('../../components/Brasao/brasaobaca.png')}
         style={styles.logo}
       />
 
@@ -14,20 +15,24 @@ export default function TelaInscricao() {
       <Text style={styles.subtitle}>1ª edição</Text>
       
       <View style={styles.detailsContainer}>
-        <Text style={styles.detail}>Data: 18/10/2024</Text>
-        <Text style={styles.detail}>Horário: 15:00 – 17:00</Text>
-        <Text style={styles.detail}>Total de Vagas: 50 Participantes</Text>
-        <Text style={styles.detail}>Inscrições abertas até: 08/10/2024</Text>
-        <Text style={styles.detail}>Valor: R$ 20,00</Text>
+        <Text style={styles.detail}><Text style={styles.bold}>Data:</Text> 18/10/2024</Text>
+        <Text style={styles.detail}><Text style={styles.bold}>Horário:</Text> 15:00 – 17:00</Text>
+        <Text style={styles.detail}><Text style={styles.bold}>Total de Vagas:</Text> 50 Participantes</Text>
+        <Text style={styles.detail}><Text style={styles.bold}>Inscrições abertas até:</Text> 08/10/2024</Text>
+        <Text style={styles.detail}><Text style={styles.bold}>Valor:</Text> R$ 20,00</Text>
       </View>
 
       {/* Mapa ou imagem de localização (opcional) */}
       <Image 
+        source={require('../../components/Mapa/MapaBaca.png')}
         style={styles.map}
       />
 
       {/* Botão de pagamento */}
-      <TouchableOpacity style={styles.paymentButton}>
+      <TouchableOpacity 
+        style={styles.paymentButton}
+        onPress={() => navigation.navigate('TelaPagamento')}
+      >
         <Text style={styles.paymentText}>Pagamento</Text>
       </TouchableOpacity>
     </ScrollView>
@@ -35,6 +40,8 @@ export default function TelaInscricao() {
 }
 
 const styles = StyleSheet.create({
+  // (seu código de estilo permanece o mesmo
+
   container: {
     flexGrow: 1,
     alignItems: 'center',
@@ -42,39 +49,61 @@ const styles = StyleSheet.create({
     backgroundColor: '#f0e6df',
   },
   logo: {
-    width: 150,
-    height: 150,
+    width: 100,
+    height: 100,
     marginBottom: 20,
+    borderRadius: 10,
   },
   title: {
     fontSize: 24,
     fontWeight: 'bold',
+    color: '#333',
     textAlign: 'center',
+    marginBottom: 5,
   },
   subtitle: {
     fontSize: 18,
-    marginBottom: 20,
+    color: '#666',
     textAlign: 'center',
+    marginBottom: 15,
   },
   detailsContainer: {
     width: '100%',
+    backgroundColor: '#fff',
+    padding: 15,
+    borderRadius: 10,
     marginBottom: 20,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
   },
   detail: {
     fontSize: 16,
-    marginBottom: 5,
+    color: '#444',
+    marginBottom: 8,
+  },
+  bold: {
+    fontWeight: 'bold',
+    color: '#000',
   },
   map: {
     width: '100%',
     height: 150,
+    borderRadius: 10,
     marginBottom: 20,
   },
   paymentButton: {
     backgroundColor: '#34a853',
-    padding: 15,
+    paddingVertical: 15,
+    paddingHorizontal: 30,
     borderRadius: 10,
-    width: '80%',
     alignItems: 'center',
+    width: '80%',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.2,
+    shadowRadius: 5,
   },
   paymentText: {
     color: '#fff',

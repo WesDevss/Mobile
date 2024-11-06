@@ -20,7 +20,7 @@ export default function App() {
         <Stack.Screen name="Login" component={TelaLogin} />
         <Stack.Screen name="Cadastro" component={TelaCadastro} />
         <Stack.Screen name="Home" component={TelaHome} />
-        <Stack.Screen name="Pagamentos" component={TelaPagamento} />
+        <Stack.Screen name="Pagamento" component={TelaPagamento} />
         <Stack.Screen name="Inscricao" component={TelaInscricao} />
         <Stack.Screen name="Configuracoes" component={TelaConfiguracoes} />
         <Stack.Screen name="Inscrito" component={TelaInscrito} />
