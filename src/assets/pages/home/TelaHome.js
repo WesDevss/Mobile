@@ -1,11 +1,31 @@
-import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
+import React, { useRef } from 'react';
+import { View, Text, StyleSheet, TouchableOpacity, ScrollView, Animated } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import Logo from '../../../assets/components/Logo/Logo';
 import Banner from '../../../assets/components/Banner/Banner';
 import Brasao from '../../../assets/components/Brasao/Brasao';
 
 export default function TelaHome() {
+  // Ref para controlar a animação de brilho
+  const iconScale = useRef(new Animated.Value(1)).current;
+
+  // Funções para aumentar e reduzir o brilho
+  const handlePressIn = () => {
+    Animated.timing(iconScale, {
+      toValue: 1.2,
+      duration: 200,
+      useNativeDriver: true,
+    }).start();
+  };
+
+  const handlePressOut = () => {
+    Animated.timing(iconScale, {
+      toValue: 1,
+      duration: 200,
+      useNativeDriver: true,
+    }).start();
+  };
+
   return (
     <View style={styles.container}>
       <View style={styles.statusBar} />  {/* Barra de Status */}
@@ -17,55 +37,56 @@ export default function TelaHome() {
         
         {/* Grid de campeonatos */}
         <View style={styles.championshipsGrid}>
-          {/* Campeonato 1 */}
+          {/* Exemplo de um Campeonato */}
           <View style={styles.championshipItem}>
-            <Brasao source={{ uri: 'link_para_o_brasao_1' }} style={styles.brasao} />
+            <Brasao source={{ uri: 'link_para_o_brasao' }} style={styles.brasao} />
             <TouchableOpacity style={styles.participateButton}>
               <Text style={styles.participateText}>Participe</Text>
             </TouchableOpacity>
           </View>
-          
-          {/* Campeonato 2 */}
-          <View style={styles.championshipItem}>
-            <Brasao source={{ uri: 'link_para_o_brasao_2' }} style={styles.brasao} />
-            <TouchableOpacity style={styles.participateButton}>
-              <Text style={styles.participateText}>Participe</Text>
-            </TouchableOpacity>
-          </View>
-          
-          {/* Campeonato 3 */}
-          <View style={styles.championshipItem}>
-            <Brasao source={{ uri: 'link_para_o_brasao_3' }} style={styles.brasao} />
-            <TouchableOpacity style={styles.participateButton}>
-              <Text style={styles.participateText}>Participe</Text>
-            </TouchableOpacity>
-          </View>
-          
-          {/* Campeonato 4 */}
-          <View style={styles.championshipItem}>
-            <Brasao source={{ uri: 'link_para_o_brasao_4' }} style={styles.brasao} />
-            <TouchableOpacity style={styles.participateButton}>
-              <Text style={styles.participateText}>Participe</Text>
-            </TouchableOpacity>
-          </View>
+          {/* Repita o item de campeonato conforme necessário */}
         </View>
 
         {/* Menu Inferior */}
         <View style={styles.bottomMenu}>
-          <TouchableOpacity>
-            <Icon name="home" size={30} color="black" />
+          {/** Ícones do menu */}
+          <TouchableOpacity
+            onPressIn={handlePressIn}
+            onPressOut={handlePressOut}
+            style={styles.menuItem}>
+            <Animated.View style={{ transform: [{ scale: iconScale }] }}>
+              <Icon name="home" size={30} color="black" />
+            </Animated.View>
             <Text style={styles.iconText}>Home</Text>
           </TouchableOpacity>
-          <TouchableOpacity>
-            <Icon name="payment" size={30} color="black" />
+
+          <TouchableOpacity
+            onPressIn={handlePressIn}
+            onPressOut={handlePressOut}
+            style={styles.menuItem}>
+            <Animated.View style={{ transform: [{ scale: iconScale }] }}>
+              <Icon name="payment" size={30} color="black" />
+            </Animated.View>
             <Text style={styles.iconText}>Pagamento</Text>
           </TouchableOpacity>
-          <TouchableOpacity>
-            <Icon name="assignment" size={30} color="black" />
+
+          <TouchableOpacity
+            onPressIn={handlePressIn}
+            onPressOut={handlePressOut}
+            style={styles.menuItem}>
+            <Animated.View style={{ transform: [{ scale: iconScale }] }}>
+              <Icon name="assignment" size={30} color="black" />
+            </Animated.View>
             <Text style={styles.iconText}>Inscrição</Text>
           </TouchableOpacity>
-          <TouchableOpacity>
-            <Icon name="settings" size={30} color="black" />
+
+          <TouchableOpacity
+            onPressIn={handlePressIn}
+            onPressOut={handlePressOut}
+            style={styles.menuItem}>
+            <Animated.View style={{ transform: [{ scale: iconScale }] }}>
+              <Icon name="settings" size={30} color="black" />
+            </Animated.View>
             <Text style={styles.iconText}>Ajustes</Text>
           </TouchableOpacity>
         </View>
@@ -137,6 +158,9 @@ const styles = StyleSheet.create({
     justifyContent: 'space-around',
     alignItems: 'center',
     paddingVertical: 10,
+  },
+  menuItem: {
+    alignItems: 'center',
   },
   iconText: {
     fontSize: 12,

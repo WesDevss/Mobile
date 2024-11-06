@@ -8,8 +8,8 @@ export default function Banner() {
     <View style={styles.container}>
       <Image 
         source={require('./Banner.png')}  // Caminho para a imagem do banner
-        style={styles.logo} 
-        resizeMode="contain" 
+        style={styles.Banner} 
+        resizeMode="cover"  // A imagem cobre toda a área, podendo ser cortada
       />
     </View>
   );
@@ -18,10 +18,12 @@ export default function Banner() {
 const styles = StyleSheet.create({
   container: {
     alignItems: 'center',
-    marginBottom: 20,  // Define a margem inferior do banner
+    width: '100%',  // Garante que o container ocupe toda a largura da tela
+    top: 0,  // Posiciona o banner no topo
+    left: 0,  // Garante que ocupe toda a largura da tela
   },
-  logo: {
-    width: width,     // Define a largura como a largura total da tela
-    height: 200,      // Altura do banner
+  Banner: {
+    width: '100%',    // A imagem ocupará 100% da largura da tela
+    height: 220,      // Altura do banner, pode ser ajustada conforme necessário
   },
 });
