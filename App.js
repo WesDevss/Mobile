@@ -8,6 +8,7 @@ import TelaInicial from './src/assets/pages/inicial/TelaInicial';
 import TelaPagamento from './src/assets/pages/pagamentos/TelaPagamento';
 import TelaInscricao from './src/assets/pages/inscricao/TelaInscricao';
 import TelaConfiguracoes from './src/assets/pages/configuracoes/TelaConfiguracoes'; 
+import TelaInscrito from './src/assets/pages/inscrito/TelaInscrito';
 
 const Stack = createStackNavigator();
 
@@ -22,6 +23,7 @@ export default function App() {
         <Stack.Screen name="Pagamentos" component={TelaPagamento} />
         <Stack.Screen name="Inscricao" component={TelaInscricao} />
         <Stack.Screen name="Configuracoes" component={TelaConfiguracoes} />
+        <Stack.Screen name="Inscrito" component={TelaInscrito} />
       </Stack.Navigator>
     </NavigationContainer>
   );

@@ -1,9 +1,9 @@
 import React from 'react';
 import { View, TouchableOpacity, Text, StyleSheet, Image } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import Logo from '../../../assets/components/Logo/DamasLogo.png';
 
-// Importar as imagens
-import Banner from '../../../assets/components/Banner/Banner.png';
+// Imagens para os brasões
 import Bacaberia from '../../../assets/components/Brasao/brasaobaca.png';
 import Arari from '../../../assets/components/Brasao/brasaoarari.png';
 import Saoluis from '../../../assets/components/Brasao/brasaoslz.png';
@@ -22,9 +22,6 @@ const Card = ({ imageSource, title }) => (
 export default function TelaHome({ navigation }) {
   return (
     <View style={styles.container}>
-      {/* Banner no topo */}
-      <Image source={Banner} style={styles.banner} />
-
       {/* Título */}
       <Text style={styles.title}>Campeonatos</Text>
 
@@ -36,7 +33,7 @@ export default function TelaHome({ navigation }) {
         <Card imageSource={Viana} title="Viana" />
       </View>
 
-      {/* Barra de navegação inferior */}
+      {/* Barra de navegação inferior com a logo */}
       <View style={styles.navigationBar}>
         <TouchableOpacity style={styles.navButton} onPress={() => navigation.navigate('Home')}>
           <Icon name="home" size={24} color="black" />
@@ -46,6 +43,12 @@ export default function TelaHome({ navigation }) {
           <Icon name="payment" size={24} color="black" />
           <Text style={styles.navButtonText}>Pagamento</Text>
         </TouchableOpacity>
+        
+        {/* Logo como botão centralizado na barra */}
+        <TouchableOpacity style={styles.logoButton} onPress={() => navigation.navigate('Inscrito')}>
+          <Image source={Logo} style={styles.logo} />
+        </TouchableOpacity>
+
         <TouchableOpacity style={styles.navButton} onPress={() => navigation.navigate('Inscricao')}>
           <Icon name="person-add" size={24} color="black" />
           <Text style={styles.navButtonText}>Inscrição</Text>
@@ -62,19 +65,13 @@ export default function TelaHome({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#F5F5F5', 
-  },
-  banner: { 
-    width: '100%',
-    height: 100,
-    resizeMode: 'cover',
-    marginTop: 20, 
+    backgroundColor: '#F5F5F5',
   },
   title: {
     fontSize: 24,
     fontWeight: 'bold',
     marginBottom: 20,
-    color: '#333', 
+    color: '#333',
     textAlign: 'center',
   },
   cardsContainer: {
@@ -90,21 +87,21 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   cardImage: {
-    width: 150, // Aumente a largura da imagem
-    height: 150, // Aumente a altura da imagem
+    width: 150,
+    height: 150,
     resizeMode: 'contain',
-    marginBottom: 10, 
+    marginBottom: 10,
   },
   participateButton: {
-    backgroundColor: '#F0E68C', // Cor do botão
-    padding: 20, // Aumente o padding do botão
+    backgroundColor: '#F0E68C',
+    padding: 20,
     borderRadius: 5,
     borderWidth: 1,
     borderColor: '#C0C0C0',
   },
   participateButtonText: {
-    color: '#333', 
-    fontSize: 18, // Aumente o tamanho do texto do botão
+    color: '#333',
+    fontSize: 18,
     fontWeight: 'bold',
   },
   navigationBar: {
@@ -112,7 +109,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-around',
     width: '100%',
     padding: 10,
-    backgroundColor: '#938F86', 
+    backgroundColor: '#938F86',
     position: 'absolute',
     bottom: 0,
   },
@@ -120,8 +117,18 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   navButtonText: {
-    fontSize: 12, 
+    fontSize: 12,
     color: '#333',
     marginTop: 5,
+  },
+  logoButton: {
+    alignItems: 'center',
+    marginBottom: 0, // ajustado para alinhar a logo mais acima
+  },
+  logo: {
+    width: 60, // tamanho da logo
+    height: 60,
+    resizeMode: 'contain',
+    marginTop: -5, // ajuste para elevar a logo
   },
 });

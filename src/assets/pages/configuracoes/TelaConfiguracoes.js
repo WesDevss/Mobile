@@ -7,7 +7,7 @@ export default function TelaConfiguracoes({ navigation }) {
 
   useEffect(() => {
     const loadUserData = async () => {
-      const email = 'wesley@gmail.com'; // Substitua pelo e-mail do usuário logado, se necessário
+      const email = 'w@gmail.com'; // Substitua pelo e-mail do usuário logado, se necessário
       const data = await AsyncStorage.getItem(email);
       if (data) {
         setUserData(JSON.parse(data));
