@@ -44,7 +44,7 @@ export default function TelaConfiguracoes({ navigation }) {
 
       <TouchableOpacity
         style={styles.optionButton}
-        onPress={() => navigation.navigate('Ranking')}
+        onPress={() => navigation.navigate('TelaRanking')}
       >
         <Text style={styles.optionText}>Ranking</Text>
       </TouchableOpacity>
