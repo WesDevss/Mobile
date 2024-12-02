@@ -1,6 +1,6 @@
 # Mobile2.0
 
-Aplicação Mobile com React Native e Expo
+Aplicação Mobile com React Native e Expo para a Confederação de Damas do Maranhão
 
 🌐Tecnologias Principais:
 --------------------------------------------------------------------
