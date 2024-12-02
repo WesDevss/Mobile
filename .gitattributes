@@ -1,2 +1,9 @@
-*.js linguist-detectable=true
+# Forçar a detecção de arquivos JavaScript
+*.js linguist-language=JavaScript
+
+# Ignorar arquivos ou pastas
+/node_modules/* linguist-vendored
+/build/* linguist-generated
+
+# Garantir que arquivos JSON sejam reconhecidos
 *.json linguist-detectable=true
