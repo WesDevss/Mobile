@@ -1,1 +1,2 @@
-*.js linguist-language=React
+*.js linguist-detectable=true
+*.json linguist-detectable=true
