@@ -47,6 +47,7 @@ Use o app Expo Go no seu dispositivo móvel para escanear o QR Code e visualizar
 🧩 Componentização: Organização do código em componentes reutilizáveis.
 
 🚀 Próximas Melhorias
+--------------------------------------------------------------------
 
 Implementar validação de formulários (e.g., número do cartão, CVV, datas).
 
