@@ -21,6 +21,7 @@ Navegação entre telas com React Navigation.
 Componentes reutilizáveis para design consistente.
 
  Configuração e Execução
+--------------------------------------------------------------------
 Clone o repositório:
 
 git clone https://github.com/seu-usuario/nome-do-repositorio.git
@@ -34,6 +35,7 @@ expo start
 Teste no dispositivo:
 
 Use o app Expo Go no seu dispositivo móvel para escanear o QR Code e visualizar o aplicativo em tempo real.
+--------------------------------------------------------------------
 📌 Recursos Implementados
 
 📦 Gerenciamento de Estado: Utilização do useState para manipulação de entradas dinâmicas.
