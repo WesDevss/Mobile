@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { View, TextInput, StyleSheet, Text, TouchableOpacity } from 'react-native';
+import { Picker } from '@react-native-picker/picker';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Logo from '../../../assets/components/Logo/Logo';
 
@@ -17,16 +18,22 @@ export default function TelaCadastro({ navigation }) {
   const [email, setEmail] = useState('');
   const [senha, setSenha] = useState('');
   const [confirmarSenha, setConfirmarSenha] = useState('');
+  const [cpf, setCpf] = useState('');
+  const [cidade, setCidade] = useState('');
   const [alertMessage, setAlertMessage] = useState('');
   const [isSuccess, setIsSuccess] = useState(false);
 
   const validateEmail = (email) => {
-    const re = /\S+@\S+\.\S+/;  // Expressão regular simples para validação de e-mail
+    const re = /\S+@\S+\.\S+/;
     return re.test(email);
   };
 
+  const validateCPF = (cpf) => {
+    return cpf.length === 11;
+  };
+
   const handleCadastro = async () => {
-    if (!nome || !email || !senha || !confirmarSenha) {
+    if (!nome || !email || !senha || !confirmarSenha || !cpf || !cidade) {
       setAlertMessage('Por favor, preencha todos os campos.');
       setIsSuccess(false);
       return;
@@ -34,6 +41,12 @@ export default function TelaCadastro({ navigation }) {
 
     if (!validateEmail(email)) {
       setAlertMessage('Por favor, insira um e-mail válido.');
+      setIsSuccess(false);
+      return;
+    }
+
+    if (!validateCPF(cpf)) {
+      setAlertMessage('Por favor, insira um CPF válido.');
       setIsSuccess(false);
       return;
     }
@@ -51,17 +64,18 @@ export default function TelaCadastro({ navigation }) {
       return;
     }
 
-    await AsyncStorage.setItem(email, JSON.stringify({ nome, senha }));
+    // Salva todos os dados do usuário, incluindo o e-mail
+    await AsyncStorage.setItem(email, JSON.stringify({ nome, email, senha, cpf, cidade }));
     setAlertMessage('Cadastro realizado com sucesso!');
     setIsSuccess(true);
     setTimeout(() => {
-      navigation.navigate('Login'); // Navegar após um pequeno delay
-    }, 1000); // 1 segundo de delay para mostrar a mensagem
+      navigation.navigate('Login');
+    }, 1000);
   };
 
   return (
     <View style={styles.container}>
-      <Logo />  {/* Exibindo a Logo */}
+      <Logo />
       <Text style={styles.logo}>Faça Parte da Nossa Comunidade</Text>
       <TextInput 
         placeholder="Nome Completo" 
@@ -75,6 +89,25 @@ export default function TelaCadastro({ navigation }) {
         value={email}
         onChangeText={setEmail}
       />
+      <TextInput 
+        placeholder="CPF" 
+        style={styles.input} 
+        value={cpf}
+        onChangeText={setCpf}
+        keyboardType="numeric"
+      />
+      <Text style={styles.pickerLabel}>Escolha sua cidade:</Text>
+      <Picker
+        selectedValue={cidade}
+        onValueChange={(itemValue) => setCidade(itemValue)}
+        style={styles.picker}
+      >
+        <Picker.Item label="Selecione uma cidade" value="" />
+        <Picker.Item label="São Luís" value="sao_luis" />
+        <Picker.Item label="Bacabeira" value="bacabeira" />
+        <Picker.Item label="Arari" value="arari" />
+        <Picker.Item label="Viana" value="viana" />
+      </Picker>
       <TextInput 
         placeholder="Senha" 
         secureTextEntry 
@@ -115,21 +148,34 @@ const styles = StyleSheet.create({
   },
   input: {
     borderWidth: 1,
-    borderColor: '#ccc',
+    borderColor: '#000000',
     padding: 10,
     marginBottom: 20,
     borderRadius: 5,
     backgroundColor: '#fff',
   },
+  pickerLabel: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    marginBottom: 5,
+  },
+  picker: {
+    height: 50,
+    backgroundColor: '#fff',
+    borderRadius: 5,
+    borderWidth: 1,
+    borderColor: '#000000',
+    marginBottom: 20,
+  },
   cadastroButton: {
-    backgroundColor: '#4CAF50', // Cor verde para o botão
+    backgroundColor: '#EEC77C',
     padding: 15,
     borderRadius: 5,
     alignItems: 'center',
     marginBottom: 20,
   },
   cadastroButtonText: {
-    color: '#fff', // Texto branco para contraste
+    color: '#fff',
     fontWeight: 'bold',
   },
   alertContainer: {

@@ -1,93 +1,134 @@
 import React from 'react';
-import { View, Text, StyleSheet, Image, ScrollView, TouchableOpacity } from 'react-native';
-import Logo from '../../../assets/components/Logo/Logo';
-import Banner from '../../../assets/components/Banner/Banner';
-import Brasao from '../../../assets/components/Brasao/Brasao';
+import { View, TouchableOpacity, Text, StyleSheet, Image } from 'react-native';
+import Icon from 'react-native-vector-icons/MaterialIcons';
+import Logo from '../../../assets/components/Logo/DamasLogo.png';
 
-export default function TelaHome() {
+// Imagens para os brasões
+import Bacaberia from '../../../assets/components/Brasao/brasaobaca.png';
+import Arari from '../../../assets/components/Brasao/brasaoarari.png';
+import Saoluis from '../../../assets/components/Brasao/brasaoslz.png';
+import Viana from '../../../assets/components/Brasao/brasaoviana.png';
+
+// Componente para os cards
+const Card = ({ imageSource, title }) => (
+  <View style={styles.card}>
+    <Image source={imageSource} style={styles.cardImage} />
+    <TouchableOpacity style={styles.participateButton}>
+      <Text style={styles.participateButtonText}>Participe</Text>
+    </TouchableOpacity>
+  </View>
+);
+
+export default function TelaHome({ navigation }) {
   return (
-    <ScrollView contentContainerStyle={styles.scrollContainer}>
-      <View style={styles.container}>
-        <Logo />  {/* Exibindo a Logo */}
-        <Text style={styles.title}>Bem-vindo ao DamasZone</Text>
-        
-        <Banner /> {/* Exibindo o Banner */}
-        
-        <Text style={styles.subtitle}>Campeonatos</Text>
-        
-        {/* Exibindo os Brasões */}
-        <View style={styles.brasaoContainer}>
-          <Brasao /> {/* Brasão 1 */}
-          <TouchableOpacity style={styles.button}>
-            <Text style={styles.buttonText}>Participe</Text>
-          </TouchableOpacity>
-        </View>
-        
-        <View style={styles.brasaoContainer}>
-          <Brasao /> {/* Brasão 2 */}
-          <TouchableOpacity style={styles.button}>
-            <Text style={styles.buttonText}>Participe</Text>
-          </TouchableOpacity>
-        </View>
-        
-        <View style={styles.brasaoContainer}>
-          <Brasao /> {/* Brasão 3 */}
-          <TouchableOpacity style={styles.button}>
-            <Text style={styles.buttonText}>Participe</Text>
-          </TouchableOpacity>
-        </View>
+    <View style={styles.container}>
+      {/* Título */}
+      <Text style={styles.title}>Campeonatos</Text>
 
-        <View style={styles.brasaoContainer}>
-          <Brasao /> {/* Brasão 4 */}
-          <TouchableOpacity style={styles.button}>
-            <Text style={styles.buttonText}>Participe</Text>
-          </TouchableOpacity>
-        </View>
+      {/* Cards com os brasões */}
+      <View style={styles.cardsContainer}>
+        <Card imageSource={Bacaberia} title="Bacabal" />
+        <Card imageSource={Arari} title="Arari" />
+        <Card imageSource={Saoluis} title="São Luís" />
+        <Card imageSource={Viana} title="Viana" />
       </View>
-    </ScrollView>
+
+      {/* Barra de navegação inferior com a logo */}
+      <View style={styles.navigationBar}>
+        <TouchableOpacity style={styles.navButton} onPress={() => navigation.navigate('Home')}>
+          <Icon name="home" size={24} color="black" />
+          <Text style={styles.navButtonText}>Home</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.navButton} onPress={() => navigation.navigate('Pagamento')}>
+          <Icon name="payment" size={24} color="black" />
+          <Text style={styles.navButtonText}>Pagamento</Text>
+        </TouchableOpacity>
+        
+        {/* Logo como botão centralizado na barra */}
+        <TouchableOpacity style={styles.logoButton} onPress={() => navigation.navigate('Inscrito')}>
+          <Image source={Logo} style={styles.logo} />
+        </TouchableOpacity>
+
+        <TouchableOpacity style={styles.navButton} onPress={() => navigation.navigate('Inscricao')}>
+          <Icon name="person-add" size={24} color="black" />
+          <Text style={styles.navButtonText}>Inscrição</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.navButton} onPress={() => navigation.navigate('Configuracoes')}>
+          <Icon name="settings" size={24} color="black" />
+          <Text style={styles.navButtonText}>Ajustes</Text>
+        </TouchableOpacity>
+      </View>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
-  scrollContainer: {
-    flexGrow: 1,
-    alignItems: 'center',
-    backgroundColor: '#FFFFFF',
-  },
   container: {
     flex: 1,
-    width: '100%',
-    alignItems: 'center',
-    padding: 20,
-    backgroundColor: '#FFFFFF',
+    backgroundColor: '#F5F5F5',
   },
-  title: { 
-    fontSize: 28, 
-    fontWeight: 'bold',
-    textAlign: 'center',
-    marginVertical: 10,
-  },
-  subtitle: {
+  title: {
     fontSize: 24,
     fontWeight: 'bold',
-    marginVertical: 15,
+    marginBottom: 20,
     color: '#333',
+    textAlign: 'center',
   },
-  brasaoContainer: {
+  cardsContainer: {
     flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'space-around',
+    width: '100%',
+    padding: 10,
+  },
+  card: {
+    width: '45%',
+    marginBottom: 10,
     alignItems: 'center',
-    justifyContent: 'space-between',
-    width: '90%',
-    marginVertical: 10,
   },
-  button: {
-    backgroundColor: '#FFD700',  // Cor de fundo do botão
-    paddingVertical: 8,
-    paddingHorizontal: 16,
-    borderRadius: 8,
+  cardImage: {
+    width: 150,
+    height: 150,
+    resizeMode: 'contain',
+    marginBottom: 10,
   },
-  buttonText: {
-    color: '#000',
+  participateButton: {
+    backgroundColor: '#F0E68C',
+    padding: 20,
+    borderRadius: 5,
+    borderWidth: 1,
+    borderColor: '#C0C0C0',
+  },
+  participateButtonText: {
+    color: '#333',
+    fontSize: 18,
     fontWeight: 'bold',
+  },
+  navigationBar: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    width: '100%',
+    padding: 10,
+    backgroundColor: '#938F86',
+    position: 'absolute',
+    bottom: 0,
+  },
+  navButton: {
+    alignItems: 'center',
+  },
+  navButtonText: {
+    fontSize: 12,
+    color: '#333',
+    marginTop: 5,
+  },
+  logoButton: {
+    alignItems: 'center',
+    marginBottom: 0, // ajustado para alinhar a logo mais acima
+  },
+  logo: {
+    width: 60, // tamanho da logo
+    height: 60,
+    resizeMode: 'contain',
+    marginTop: -5, // ajuste para elevar a logo
   },
 });

@@ -5,6 +5,10 @@ import TelaLogin from './src/assets/pages/login/TelaLogin';
 import TelaCadastro from './src/assets/pages/cadastro/TelaCadastro';
 import TelaHome from './src/assets/pages/home/TelaHome';
 import TelaInicial from './src/assets/pages/inicial/TelaInicial';
+import TelaPagamento from './src/assets/pages/pagamentos/TelaPagamento';
+import TelaInscricao from './src/assets/pages/inscricao/TelaInscricao';
+import TelaConfiguracoes from './src/assets/pages/configuracoes/TelaConfiguracoes'; 
+import TelaInscrito from './src/assets/pages/inscrito/TelaInscrito';
 
 const Stack = createStackNavigator();
 
@@ -16,6 +20,10 @@ export default function App() {
         <Stack.Screen name="Login" component={TelaLogin} />
         <Stack.Screen name="Cadastro" component={TelaCadastro} />
         <Stack.Screen name="Home" component={TelaHome} />
+        <Stack.Screen name="Pagamento" component={TelaPagamento} />
+        <Stack.Screen name="Inscricao" component={TelaInscricao} />
+        <Stack.Screen name="Configuracoes" component={TelaConfiguracoes} />
+        <Stack.Screen name="Inscrito" component={TelaInscrito} />
       </Stack.Navigator>
     </NavigationContainer>
   );
