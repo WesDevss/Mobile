@@ -3,6 +3,7 @@
 Aplicação Mobile com React Native e Expo
 
 Tecnologias Principais:
+--------------------------------------------------------------------
 
 Expo Go: Framework para desenvolvimento mobile rápido.
 React Native: Biblioteca para criar aplicativos nativos com JavaScript.
