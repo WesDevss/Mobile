@@ -65,7 +65,9 @@ git checkout -b minha-feature
 
 Envie um pull request com suas melhorias.
 
+
 🛠️ Tecnologias Utilizadas
+--------------------------------------------------------------------
 
 React Native
 
