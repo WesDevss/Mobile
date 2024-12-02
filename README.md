@@ -54,17 +54,27 @@ Melhorar o design com bibliotecas como React Native Paper ou NativeBase.
 
 🤝 Contribuições
 Contribuições são bem-vindas! Siga os passos abaixo para colaborar:
-
+--------------------------------------------------------------------
 Faça um fork do repositório.
+
 Crie um branch para suas alterações:
+
 git checkout -b minha-feature
+
 Envie um pull request com suas melhorias.
+
 🛠️ Tecnologias Utilizadas
+
 React Native
+
 Expo
+
 JavaScript
+
 React Navigation
+
 Vector Icons
+
 Se precisar de mais detalhes ou ajustes na descrição, é só pedir! 🚀
 
 
