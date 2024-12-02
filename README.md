@@ -35,14 +35,23 @@ Teste no dispositivo:
 
 Use o app Expo Go no seu dispositivo móvel para escanear o QR Code e visualizar o aplicativo em tempo real.
 📌 Recursos Implementados
+
 📦 Gerenciamento de Estado: Utilização do useState para manipulação de entradas dinâmicas.
+
 🌐 Navegação: Implementação de navegação fluida com useNavigation.
+
 🎨 Estilização: Uso de StyleSheet para customizar a interface.
+
 🧩 Componentização: Organização do código em componentes reutilizáveis.
+
 🚀 Próximas Melhorias
+
 Implementar validação de formulários (e.g., número do cartão, CVV, datas).
+
 Integração com APIs externas para processar pagamentos.
+
 Melhorar o design com bibliotecas como React Native Paper ou NativeBase.
+
 🤝 Contribuições
 Contribuições são bem-vindas! Siga os passos abaixo para colaborar:
 
